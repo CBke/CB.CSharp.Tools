@@ -12,21 +12,19 @@ namespace CB.CSharp.Extentions
     {
         public static PdfDocument GetAsPdf(this MailMessage MailMessage)
         {
-            HtmlToPdf converter = new HtmlToPdf();
-
-            UriBuilder UriBuilder = new UriBuilder(
+            var UriBuilder = new UriBuilder(
                 HttpContext.Current.Request.Url.Scheme,
                 HttpContext.Current.Request.Url.Host,
                 HttpContext.Current.Request.Url.Port
                 );
 
-            return converter.ConvertHtmlString(MailMessage.Body, UriBuilder.Uri.AbsoluteUri);
+            return new HtmlToPdf().ConvertHtmlString(MailMessage.Body, UriBuilder.Uri.AbsoluteUri);
         }
 
         public static void AttachFiles(this MailMessage MailMessage, string Path, List<string> Filenames)
         {
-            foreach (string file in Filenames)
-                MailMessage.Attachments.Add(new Attachment(Path + file));
+            foreach (var Filename in Filenames)
+                MailMessage.Attachments.Add(new Attachment(Path + Filename));
         }
 
         public static void AttachPdfDocument(this MailMessage MailMessage, PdfDocument PdfDocument, string FileName)
@@ -35,7 +33,7 @@ namespace CB.CSharp.Extentions
             {
                 PdfDocument.Save(MemoryStream);
                 MemoryStream.Position = 0;
-                ContentType ContentType = new ContentType(MediaTypeNames.Application.Pdf);
+                var ContentType = new ContentType(MediaTypeNames.Application.Pdf);
 
                 MailMessage.AttachMemoryStream(MemoryStream, ContentType, FileName);
             }

@@ -7,7 +7,7 @@ namespace CB.CSharp.Extentions
     {
         public static List<T> GetControlList<T>(this ControlCollection ControlCollection, bool HasValidID = true) where T : Control
         {
-            List<T> ResultCollection = new List<T>();
+            var ResultCollection = new List<T>();
             ControlCollection.GetControlsAndAddToList<T>(ResultCollection, HasValidID);
             return ResultCollection;
         }

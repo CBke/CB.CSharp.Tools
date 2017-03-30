@@ -23,7 +23,7 @@ namespace CB.CSharp.Extentions
 
         public static string UntilChar(this string String, char Delimiter)
         {
-            int i = String.IndexOf(Delimiter);
+            var i = String.IndexOf(Delimiter);
             if (i > -1)
                 return String.Substring(0, i - 1);
             return String;

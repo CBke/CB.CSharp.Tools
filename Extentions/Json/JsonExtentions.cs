@@ -3,7 +3,7 @@
 namespace CB.CSharp.Extentions
 {
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public class JsonIgnoreGroupAttribute : Attribute
+    public sealed class JsonIgnoreGroupAttribute : Attribute
     {
         public string[] Groups { get; set; }
 

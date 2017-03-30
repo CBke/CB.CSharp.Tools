@@ -19,9 +19,9 @@ namespace CB.CSharp.Tools.SQLite
 
         public int Update(string SqlStatement, params SQLiteParameter[] SQLiteParameters)
         {
-            using (SQLiteCommand selectCommand = new SQLiteCommand(SqlStatement, SQLiteConnection))
+            using (var selectCommand = new SQLiteCommand(SqlStatement, SQLiteConnection))
             {
-                foreach (SQLiteParameter SQLiteParameter in SQLiteParameters)
+                foreach (var SQLiteParameter in SQLiteParameters)
                     selectCommand.Parameters.Add(SQLiteParameter);
 
                 return selectCommand.ExecuteNonQuery();
@@ -37,7 +37,7 @@ namespace CB.CSharp.Tools.SQLite
 
                 using (var SQLiteDataAdapter = new SQLiteDataAdapter(selectCommand))
                 {
-                    DataTable DataTable = new DataTable();
+                    var DataTable = new DataTable();
                     SQLiteDataAdapter.Fill(DataTable);
                     return DataTable;
                 }
@@ -57,23 +57,23 @@ namespace CB.CSharp.Tools.SQLite
         {
             int ret = -1;
 
-            using (SQLiteCommand cmd = new SQLiteCommand(sql, SQLiteConnection))
+            using (var SQLiteCommand = new SQLiteCommand(sql, SQLiteConnection))
             {
                 if (parameters != null)
-                    foreach (SQLiteParameter p in parameters)
-                        cmd.Parameters.Add(p);
+                    foreach (var SQLiteParameter in parameters)
+                        SQLiteCommand.Parameters.Add(SQLiteParameter);
 
-                cmd.ExecuteNonQuery();
+                SQLiteCommand.ExecuteNonQuery();
             }
 
-            using (SQLiteDataAdapter da = new SQLiteDataAdapter("SELECT last_insert_rowid()", SQLiteConnection))
+            using (var SQLiteDataAdapter = new SQLiteDataAdapter("SELECT last_insert_rowid()", SQLiteConnection))
             {
                 try
                 {
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-                    if (dt.Rows.Count == 1)
-                        ret = int.Parse(dt.Rows[0][0].ToString());
+                    var DataTable = new DataTable();
+                    SQLiteDataAdapter.Fill(DataTable);
+                    if (DataTable.Rows.Count == 1)
+                        ret = int.Parse(DataTable.Rows[0][0].ToString());
                 }
                 catch
                 {
@@ -83,18 +83,5 @@ namespace CB.CSharp.Tools.SQLite
 
             return ret;
         }
-
-        /*
-            public bool CreateIndex(Index Index)
-            {
-                string SqlStatement = string.Format("CREATE INDEX {0} ON {1} ({2}) ",
-                    Index.Name,
-                    Index.TabelName,
-                    Index.Columns.ToJoinedString()
-                   );
-
-                return GetDt(SqlStatement).Rows.Count > 0;
-            }
-    */
     }
 }

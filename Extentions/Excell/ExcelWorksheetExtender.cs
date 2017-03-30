@@ -35,15 +35,13 @@ namespace CB.CSharp.Extentions
             if (UnwantedColumns == null)
                 return;
 
-            List<int> UnWantedColumnsIndexList = ExcelWorksheet.Cells[ExcelWorksheet.Dimension.Start.Row, ExcelWorksheet.Dimension.Start.Column, 1, ExcelWorksheet.Dimension.End.Column]
+           var UnWantedColumnsIndexList = ExcelWorksheet.Cells[ExcelWorksheet.Dimension.Start.Row, ExcelWorksheet.Dimension.Start.Column, 1, ExcelWorksheet.Dimension.End.Column]
                            .Where(x => UnwantedColumns.Contains(x.Text))
                            .Select(x => x.Columns)
                            .ToList();
 
             foreach (int IndexToDelete in UnWantedColumnsIndexList)
-            {
                 ExcelWorksheet.DeleteColumn(IndexToDelete);
-            }
 
         }
         public static void FormatExcelWorksheetDefault(this ExcelWorksheet ExcelWorksheet)

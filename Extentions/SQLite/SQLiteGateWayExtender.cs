@@ -93,7 +93,7 @@ namespace CB.CSharp.Extentions
 
         public static int InsertExcelWorksheetIntoTable(this SQLiteGateWay SQLiteGateWay, ExcelWorksheet ws, string TableName, Func<ExcelRangeBase, string> Format, bool CreateColumns = false)
         {
-            int RowsAdded = 0;
+            var RowsAdded = 0;
 
             var WantedColumns = ws.GetColumns();
 
@@ -109,7 +109,7 @@ namespace CB.CSharp.Extentions
             {
                 for (var colNum = 1; colNum <= ws.Dimension.End.Column; colNum++)
                 {
-                    string val = Format(ws.Cells[rowNum, colNum]);
+                    var val = Format(ws.Cells[rowNum, colNum]);
 
                     if (string.IsNullOrEmpty(val))
                         SQLiteParameters[colNum - 1].Value = DBNull.Value;

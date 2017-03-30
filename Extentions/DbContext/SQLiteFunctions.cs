@@ -12,7 +12,7 @@ namespace CB.CSharp.Extentions
     {
         public static string GetFileName(this DbContext DbContext)
         {
-            string FileName = "";
+            var FileName = "";
             if (DbContext.Database.Connection is SQLiteConnection)
             {
                 var SQLiteConnection = DbContext.Database.Connection as SQLiteConnection;

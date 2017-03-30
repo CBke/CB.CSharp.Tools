@@ -7,6 +7,9 @@ namespace CB.CSharp.Extentions
     public static class DataTableExtender
     {
         public static IEnumerable<string> GetColumnNames(this DataTable DataTable) =>
-            DataTable.Columns.Cast<DataColumn>().Select(x => x.ColumnName);
+            DataTable
+            .Columns
+            .Cast<DataColumn>()
+            .Select(x => x.ColumnName);
     }
 }
