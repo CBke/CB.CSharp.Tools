@@ -27,6 +27,7 @@ namespace CB.CSharp.Extentions
             if (DataTable.Columns.Count > 0)
                 worksheet.Cells["A1"].LoadFromDataTable(DataTable, true);
         }
+
         public static void RemoveColumns(this ExcelWorksheet ExcelWorksheet, params string[] UnwantedColumns)
         {
             if (ExcelWorksheet == null)
@@ -35,15 +36,15 @@ namespace CB.CSharp.Extentions
             if (UnwantedColumns == null)
                 return;
 
-           var UnWantedColumnsIndexList = ExcelWorksheet.Cells[ExcelWorksheet.Dimension.Start.Row, ExcelWorksheet.Dimension.Start.Column, 1, ExcelWorksheet.Dimension.End.Column]
-                           .Where(x => UnwantedColumns.Contains(x.Text))
-                           .Select(x => x.Columns)
-                           .ToList();
+            var UnWantedColumnsIndexList = ExcelWorksheet.Cells[ExcelWorksheet.Dimension.Start.Row, ExcelWorksheet.Dimension.Start.Column, 1, ExcelWorksheet.Dimension.End.Column]
+                            .Where(x => UnwantedColumns.Contains(x.Text))
+                            .Select(x => x.Columns)
+                            .ToList();
 
             foreach (int IndexToDelete in UnWantedColumnsIndexList)
                 ExcelWorksheet.DeleteColumn(IndexToDelete);
-
         }
+
         public static void FormatExcelWorksheetDefault(this ExcelWorksheet ExcelWorksheet)
         {
             ExcelWorksheet.Cells[ExcelWorksheet.Dimension.Address].AutoFilter = true;

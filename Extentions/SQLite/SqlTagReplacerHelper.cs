@@ -12,7 +12,6 @@ namespace CB.CSharp.Extentions
         public static string GenerateTag(this SqlTagReplacer SqlTagReplacer, string Value) =>
             $"{SqlTagReplacer.Tag}{Value}";
 
-
         public static void RewriteQuery(this SqlTagReplacer SqlTagReplacer, DbCommand cmd)
         {
             var Parameters = cmd.Parameters.Cast<DbParameter>()

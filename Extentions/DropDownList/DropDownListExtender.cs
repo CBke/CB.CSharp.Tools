@@ -5,7 +5,7 @@ namespace CB.CSharp.Extentions
 {
     public static class DropDownListExtender
     {
-        public static bool HasItemWithText(this DropDownList DropDownList, string value)=>
+        public static bool HasItemWithText(this DropDownList DropDownList, string value) =>
             DropDownList
             .Items
             .Cast<ListItem>()

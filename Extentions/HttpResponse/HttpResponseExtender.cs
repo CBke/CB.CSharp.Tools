@@ -41,7 +41,6 @@ namespace CB.CSharp.Extentions
             HttpResponse.Flush();
             HttpResponse.SuppressContent = true;
             HttpContext.Current.ApplicationInstance.CompleteRequest();
-
         }
     }
 }

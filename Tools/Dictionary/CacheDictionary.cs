@@ -9,6 +9,7 @@ namespace Tools.Dictionary
     {
         private ConcurrentDictionary<TKey, Tvalue> IntDict { get; set; } = new ConcurrentDictionary<TKey, Tvalue>();
         public Func<TKey, Tvalue> Calulate { get; set; }
+
         public CacheDictionary(Func<TKey, Tvalue> Calulate)
         {
             this.Calulate = Calulate;
